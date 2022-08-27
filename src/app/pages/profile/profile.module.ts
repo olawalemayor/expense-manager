@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 
 import { ProfileComponent } from './profile.component';
-import { Routes, RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [],
+  imports: [ReactiveFormsModule],
   exports: [],
   declarations: [ProfileComponent],
   providers: [],

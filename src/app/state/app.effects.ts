@@ -32,11 +32,23 @@ export class AppEffects {
       return this.actions$.pipe(
         ofType(AppActions.loginSuccess),
         tap(({ userToken }) => {
-          sessionStorage.setItem('userToken', userToken);
+          localStorage.setItem('userToken', userToken);
           this.router.navigate(['in']);
         })
       );
     },
     { dispatch: false }
   );
+
+  getUser$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AppActions.getUser),
+      mergeMap(() =>
+        this.userService.getUser().pipe(
+          map((user) => AppActions.getUserSuccess({ user })),
+          catchError((error) => of(AppActions.getUserFail({ error })))
+        )
+      )
+    );
+  });
 }

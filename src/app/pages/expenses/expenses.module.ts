@@ -6,6 +6,10 @@ import { StoreModule } from '@ngrx/store';
 import { expenseReducer } from './state/expenses.reducer';
 import { InfoBarComponent } from '../../components/info-bar/info-bar.component';
 import { FilterComponent } from '../../components/filter/filter.component';
+import { ExpenseService } from '../../shared/expense.service';
+import { EffectsModule } from '@ngrx/effects';
+import { ExpenseEffects } from './state/expenses.effects';
+import { ExpenseModalComponent } from '../../components/expense-modal/expense-modal.component';
 
 @NgModule({
   imports: [
@@ -13,9 +17,11 @@ import { FilterComponent } from '../../components/filter/filter.component';
     StoreModule.forFeature('expense', expenseReducer),
     FilterComponent,
     InfoBarComponent,
+    ExpenseModalComponent,
+    EffectsModule.forFeature([ExpenseEffects]),
   ],
   exports: [],
   declarations: [ExpensesComponent],
-  providers: [],
+  providers: [ExpenseService, ExpenseEffects],
 })
 export class ExpensesModule {}

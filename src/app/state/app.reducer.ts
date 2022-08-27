@@ -9,13 +9,22 @@ import { IUser } from '../models/user';
 import * as AppActions from './app.actions';
 
 export interface AppState extends State {
-  user: IUser | null;
+  user: IUser;
   userToken: string | null;
   error: string;
 }
 
 const initialState: AppState = {
-  user: null,
+  user: {
+    department: '',
+    job_description: '',
+    location: '',
+    name: '',
+    password: '',
+    picture: '',
+    token: '',
+    username: '',
+  },
   userToken: null,
   error: '',
 };
@@ -44,6 +53,20 @@ export const appReducer = createReducer(
     return {
       ...state,
       error: action.error,
+    };
+  }),
+
+  on(AppActions.getUserSuccess, (state, actions): AppState => {
+    return {
+      ...state,
+      user: actions.user,
+    };
+  }),
+
+  on(AppActions.getUserFail, (state, actions): AppState => {
+    return {
+      ...state,
+      error: actions.error,
     };
   })
 );

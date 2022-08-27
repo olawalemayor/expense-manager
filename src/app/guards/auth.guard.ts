@@ -10,6 +10,6 @@ export class AuthGuard implements CanActivate {
   constructor() {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return !!sessionStorage.getItem('userToken');
+    return !!localStorage.getItem('userToken');
   }
 }
