@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { loginUser } from 'src/app/state/app.actions';
 import { errorSelector, AppState } from '../../state/app.reducer';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +43,15 @@ export class LoginComponent implements OnInit {
       this.store.dispatch(loginUser({ username, password }));
   }
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<AppState>,
+    private router: Router
+  ) {
+    if (localStorage.getItem('userToken')) {
+      this.router.navigate(['in']);
+    }
+  }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
