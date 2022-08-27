@@ -1,0 +1,22 @@
+<header class="bg-blue-900">
+  <div class="p-2 flex justify-between">
+    <h1 class="text-white font-semibold text-3xl uppercase">
+      <a [routerLink]="['', 'in']"> EXPENSE Manager </a>
+    </h1>
+
+    <div>
+      <a
+        [routerLink]="['profile']"
+        class="px-5 py-2 text-black rounded bg-blue-100 mx-2 hover:bg-blue-300"
+        >Profile</a
+      >
+
+      <button
+        class="px-5 py-2 text-black rounded bg-blue-100 mx-2 hover:bg-blue-300"
+        (click)="logOut()"
+      >
+        Log out
+      </button>
+    </div>
+  </div>
+</header>
