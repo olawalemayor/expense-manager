@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {}
 
   logOut() {
-    sessionStorage.removeItem('userToken');
+    localStorage.removeItem('userToken');
     this.router.navigate(['']);
   }
 }
