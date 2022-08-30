@@ -1,27 +1,38 @@
-# ExpressManager
+# Expense Manage Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.2.
+## Contact
 
-## Development server
+Email: olawalemayor90@gmail.com
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+website: <https://olawalemayor.herokuapp.com>
 
-## Code scaffolding
+<https://www.linkedin.com/in/olawale-mayor>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## What was done
 
-## Build
+A frontend implementation of an expense management software
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Created a custom api to hold some information (For login and simulate a temporary storage for   expenses)
 
-## Running unit tests
+- Installed the neccessary tools needed to build the application including state management tool and a material based library
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Built components, modules and services for the application
 
-## Running end-to-end tests
+- Added routing and lazy loading to enhnace application performance
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- Configured state management and added features like Sorting, Filtering and Searching on the expense table
 
-## Further help
+- Used forms and validation on user profile page to allow editing of profile
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Note
+
+The behaviour of the application lacks some essential features when it comes to filtering, this is because the data source is temporary (It was built using BehaviourSubject), it looses value on refresh and the NGRX implementation also mutates the filtered expense (The filtering should be done on the backend or on a more stable source of data - The filtering was not implemented in the custom API)
+
+A workaround for this is to build the functionality in the custom API
+
+Tools and Technologies used: Angular, Typescript, NgRX, Tailwindcss, Angular material
+
+## Links to project
+
+Live application: <https://expense-manager-omega.vercel.app/>
+Github Portfolio: <https://github.com/olawalemayor/expense-manager>
