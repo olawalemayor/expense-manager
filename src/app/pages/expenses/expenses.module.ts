@@ -10,6 +10,7 @@ import { ExpenseService } from '../../shared/expense.service';
 import { EffectsModule } from '@ngrx/effects';
 import { ExpenseEffects } from './state/expenses.effects';
 import { ExpenseModalComponent } from '../../components/expense-modal/expense-modal.component';
+import { ExpenseTableComponent } from '../../components/expense-table/expense-table.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { ExpenseModalComponent } from '../../components/expense-modal/expense-mo
     FilterComponent,
     InfoBarComponent,
     ExpenseModalComponent,
+    ExpenseTableComponent,
     EffectsModule.forFeature([ExpenseEffects]),
   ],
   exports: [],

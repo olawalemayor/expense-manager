@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as ExpenseApi from '../../assets/api/expenses/api';
 import { IExpense } from '../models/expenses';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class ExpenseService {

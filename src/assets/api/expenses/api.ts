@@ -10,11 +10,14 @@ export const getExpenses = () => {
 export const addExpense = (expense: IExpense) => {
   // Assigns the ID of the expense by adding 1, then adds the expense to the expenses array
 
-  const exp = expenses.getValue();
+  const exp = [...expenses.getValue()];
 
-  expense.id = exp.length + 1;
+  const id = exp.length + 1;
+  const status = 'new';
 
-  exp.push(expense);
+  const newExpense: IExpense = { id, status, ...expense };
+
+  exp.push(newExpense);
 
   expenses.next(exp);
 

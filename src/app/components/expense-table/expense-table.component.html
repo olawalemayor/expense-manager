@@ -1,1 +1,64 @@
-<p>expense-table works!</p>
+<div class="flex">
+  <button (click)="searchTable()">
+    <mat-icon>search</mat-icon>
+  </button>
+
+  <input
+    type="text"
+    class="px-2 py-1 border rounded outline-none"
+    placeholder="Search expense"
+    [(ngModel)]="searchTerm"
+  />
+</div>
+
+<!-- Table -->
+<ng-container *ngIf="sortedExpenses as dataSource">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    (matSortChange)="sortData($event)"
+  >
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+      <td mat-cell *matCellDef="let element">{{ element.date | date }}</td>
+    </ng-container>
+
+    <!-- Merchant Column -->
+    <ng-container matColumnDef="merchant">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Merchant</th>
+      <td mat-cell *matCellDef="let element">{{ element.merchant }}</td>
+    </ng-container>
+
+    <!-- Total Column -->
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+      <td mat-cell *matCellDef="let element">{{ element.total }}</td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [ngClass]="{
+          'text-red-700': element.status === 'new',
+          'italic font-bold': element.status === 'inProgress'
+        }"
+      >
+        {{ element.status | titlecase }}
+      </td>
+    </ng-container>
+
+    <!-- Comment Column -->
+    <ng-container matColumnDef="comment">
+      <th mat-header-cell *matHeaderCellDef>Comment</th>
+      <td mat-cell *matCellDef="let element">{{ element.comment }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</ng-container>

@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
     private store: Store<AppState>,
     private router: Router
   ) {
+    // Navigate away from login if user is already logged in
     if (localStorage.getItem('userToken')) {
       this.router.navigate(['in']);
     }

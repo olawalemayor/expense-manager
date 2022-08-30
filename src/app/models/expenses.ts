@@ -1,15 +1,9 @@
 export interface IExpense {
-  id: number;
+  id?: number;
   date: Date;
   merchant: string;
-  status: Status;
+  status?: string;
   total: number;
-  comment?: string;
-  receipt?: string;
-}
-
-enum Status {
-  inProgress = 'in progress',
-  reImbursed = 'reimbursed',
-  new = 'new',
+  comment: string;
+  receipt: string;
 }

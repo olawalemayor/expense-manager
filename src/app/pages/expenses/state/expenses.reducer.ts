@@ -9,15 +9,25 @@ import * as ExpenseActions from './expenses.actions';
 import { State } from '../../../state/app.state';
 export interface ExpenseState extends State {
   expenses: IExpense[];
-  selectedExpense: IExpense | null;
-  error: string | null;
+  totalExpense: number;
+  selectedExpense: IExpense;
+  error: string;
   editMode: boolean;
 }
 
 const initialState: ExpenseState = {
   expenses: [],
-  selectedExpense: null,
-  error: null,
+  selectedExpense: {
+    date: new Date(),
+    id: 0,
+    merchant: '',
+    status: 'new',
+    total: 0,
+    comment: '',
+    receipt: '',
+  },
+  error: '',
+  totalExpense: 0,
   editMode: false,
 };
 
@@ -38,14 +48,22 @@ export const getEditMode = createSelector(
   (state) => state.editMode
 );
 
+export const getTotalExpenses = createSelector(
+  expenseFeatureSlice,
+  (state) => state.totalExpense
+);
+
 export const expenseReducer = createReducer(
   initialState,
 
   // Add expense case
   on(ExpenseActions.addExpenseSuccess, (state, action): ExpenseState => {
+    const newTotal = setTotalExpense(action);
+
     return {
       ...state,
       expenses: action.expenses,
+      totalExpense: newTotal,
     };
   }),
 
@@ -73,9 +91,12 @@ export const expenseReducer = createReducer(
 
   // Get all expenses
   on(ExpenseActions.getExpensesSuccess, (state, action): ExpenseState => {
+    const newTotal = setTotalExpense(action);
+
     return {
       ...state,
       expenses: action.expenses,
+      totalExpense: newTotal,
     };
   }),
 
@@ -109,3 +130,13 @@ export const expenseReducer = createReducer(
     };
   })
 );
+
+const setTotalExpense = (action: { expenses: IExpense[] }) => {
+  let newTotal = 0;
+  const newExpenses = action.expenses;
+  newExpenses.forEach((expense) => {
+    if (expense.status === 'new') newTotal += expense.total;
+  });
+
+  return newTotal;
+};
