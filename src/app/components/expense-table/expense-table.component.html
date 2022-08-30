@@ -12,7 +12,10 @@
 </div>
 
 <!-- Table -->
-<ng-container *ngIf="sortedExpenses as dataSource">
+<ng-container
+  *ngIf="sortedExpenses as dataSource"
+  class="h-full overflow-y-scroll max-h-full"
+>
   <table
     mat-table
     [dataSource]="dataSource"
