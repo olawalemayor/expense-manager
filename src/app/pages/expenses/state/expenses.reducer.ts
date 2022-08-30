@@ -128,6 +128,80 @@ export const expenseReducer = createReducer(
       ...state,
       editMode: !state.editMode,
     };
+  }),
+
+  // Filters
+
+  // From date
+  on(ExpenseActions.filterFromDate, (state, actions): ExpenseState => {
+    const expenses = [...state.expenses].filter(
+      (expense) => expense.date >= actions.date
+    );
+
+    return {
+      ...state,
+      expenses,
+    };
+  }),
+
+  // To date
+  on(ExpenseActions.filterToDate, (state, actions): ExpenseState => {
+    const expenses = [...state.expenses].filter(
+      (expense) => expense.date <= actions.date
+    );
+
+    return {
+      ...state,
+      expenses,
+    };
+  }),
+
+  // By min total
+  on(ExpenseActions.filterMin, (state, actions): ExpenseState => {
+    const expenses = [...state.expenses].filter(
+      (expense) => expense.total >= actions.total
+    );
+
+    return {
+      ...state,
+      expenses,
+    };
+  }),
+
+  // By max total
+  on(ExpenseActions.filterMax, (state, actions): ExpenseState => {
+    const expenses = [...state.expenses].filter(
+      (expense) => expense.total <= actions.total
+    );
+
+    return {
+      ...state,
+      expenses,
+    };
+  }),
+
+  // By merchant
+  on(ExpenseActions.filterMerchant, (state, actions): ExpenseState => {
+    const expenses = [...state.expenses].filter(
+      (expense) => expense.merchant === actions.merchant
+    );
+
+    return {
+      ...state,
+      expenses,
+    };
+  }),
+
+  // By status
+  on(ExpenseActions.filterStatus, (state, actions): ExpenseState => {
+    const expenses = [...state.expenses].filter(
+      (expense) => expense.status === actions.status
+    );
+
+    return {
+      ...state,
+      expenses,
+    };
   })
 );
 

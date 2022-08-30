@@ -10,7 +10,11 @@ import {
   ExpenseState,
   getExpenses,
 } from 'src/app/pages/expenses/state/expenses.reducer';
-import { getExpenses as getAllExpenses } from '../../pages/expenses/state/expenses.actions';
+import {
+  getExpense,
+  getExpenses as getAllExpenses,
+  toggleEditMode,
+} from '../../pages/expenses/state/expenses.actions';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -69,12 +73,23 @@ export class ExpenseTableComponent implements OnInit {
     });
   }
 
+  selectExpense(expense: any) {
+    const selectedExpense = expense as IExpense;
+
+    if (!selectedExpense.id) return;
+    this.store.dispatch(getExpense({ id: selectedExpense.id }));
+
+    this.store.dispatch(toggleEditMode());
+  }
+
   searchTerm!: string;
   searchTable() {
     const expenses = [...this.expenses];
-    this.sortedExpenses = expenses.filter(
-      (e) => e.merchant === this.searchTerm
-    );
+    this.sortedExpenses = expenses.filter((e) => {
+      const merchant = e.merchant.toLowerCase();
+
+      return merchant.includes(this.searchTerm.toLowerCase());
+    });
   }
 
   ngOnInit(): void {

@@ -1,12 +1,15 @@
-<div class="flex">
-  <button (click)="searchTable()">
+<div class="flex items-center">
+  <button
+    (click)="searchTable()"
+    class="p-2 bg-blue-800 flex items-center justify-center text-white rounded-l-lg"
+  >
     <mat-icon>search</mat-icon>
   </button>
 
   <input
     type="text"
-    class="px-2 py-1 border rounded outline-none"
-    placeholder="Search expense"
+    class="p-2 border rounded-r-lg outline-none w-full lg:w-1/2"
+    placeholder="Search expense by Merchant"
     [(ngModel)]="searchTerm"
   />
 </div>
@@ -14,7 +17,7 @@
 <!-- Table -->
 <ng-container
   *ngIf="sortedExpenses as dataSource"
-  class="h-full overflow-y-scroll max-h-full"
+  class="h-full overflow-y-scroll max-h-[600px] lg:max-h-full"
 >
   <table
     mat-table
@@ -62,6 +65,11 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="selectExpense(row)"
+      class="cursor-pointer hover:bg-gray-200"
+    ></tr>
   </table>
 </ng-container>

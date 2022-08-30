@@ -64,3 +64,34 @@ export const removeExpenseFailure = createAction(
 
 // Toggle edit mode
 export const toggleEditMode = createAction('[Expense] Toggle Edit Mode');
+
+// Filters
+export const filterFromDate = createAction(
+  '[Expense] Filter Expense from date',
+  props<{ date: Date }>()
+);
+
+export const filterToDate = createAction(
+  '[Expense] Filter Expense to date',
+  props<{ date: Date }>()
+);
+
+export const filterMin = createAction(
+  '[Expense] Filter Expense by minimum total',
+  props<{ total: number }>()
+);
+
+export const filterMax = createAction(
+  '[Expense] Filter Expense by maximum total',
+  props<{ total: number }>()
+);
+
+export const filterStatus = createAction(
+  '[Expense] Filter Expense by status',
+  props<{ status: string }>()
+);
+
+export const filterMerchant = createAction(
+  '[Expense] Filter Expense by merchant',
+  props<{ merchant: string }>()
+);
