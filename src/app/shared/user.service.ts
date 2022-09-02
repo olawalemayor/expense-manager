@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthAPI } from '../../assets/api/auth';
+
 import { IUser } from '../models/user';
-import { of, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { AuthAPI } from '../api/auth';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {

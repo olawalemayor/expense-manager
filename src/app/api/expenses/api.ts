@@ -1,5 +1,5 @@
 import { expenses, sampleData } from './expenses';
-import { IExpense } from '../../../app/models/expenses';
+import { IExpense } from '../../models/expenses';
 import { of, throwError } from 'rxjs';
 
 export const getExpenses = () => {
