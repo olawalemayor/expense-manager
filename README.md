@@ -30,6 +30,8 @@ The behaviour of the application lacks some essential features when it comes to 
 
 A workaround for this is to build the functionality in the custom API
 
+UPDATE: The filtering is still not perfect because it does not combine (I did not implement such API on the frontend but it can be done)
+
 Tools and Technologies used: Angular, Typescript, NgRX, Tailwindcss, Angular material
 
 ## Links to project
