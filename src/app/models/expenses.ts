@@ -1,9 +1,8 @@
 export interface IExpense {
-  id?: number;
-  date: Date;
-  merchant: string;
-  status?: string;
-  total: number;
-  comment: string;
-  receipt: string;
+  Date: string;
+  Merchant: string;
+  Status: string;
+  Total: string;
+  Comment: string;
+  Receipt?: string;
 }

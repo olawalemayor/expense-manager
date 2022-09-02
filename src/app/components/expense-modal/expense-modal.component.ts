@@ -47,14 +47,15 @@ export class ExpenseModalComponent implements OnInit {
     const newTotal = total as number;
 
     const expense: IExpense = {
-      comment: newComment,
-      date: newDate,
-      merchant: newMerchant,
-      receipt: newReceipt,
-      total: newTotal,
+      Comment: newComment,
+      Date: newDate.toString(),
+      Merchant: newMerchant,
+      Receipt: newReceipt,
+      Total: String(newTotal),
+      Status: 'New',
     };
 
-    if (!expense.date || !expense.merchant || !expense.receipt) return;
+    if (!expense.Date || !expense.Merchant) return;
 
     this.store.dispatch(addExpense({ expense }));
 
@@ -96,10 +97,23 @@ export class ExpenseModalComponent implements OnInit {
     });
 
     this.selectedExpense$.subscribe((expense) => {
-      const { date, merchant, total, comment, receipt } = expense;
+      const {
+        Date: date,
+        Merchant: merchant,
+        Total,
+        Comment: comment,
+        Receipt,
+      } = expense;
+
+      const tempTotal = Total.split('');
+      tempTotal.shift();
+
+      const total = Number(tempTotal.join(''));
+      const receipt = Receipt || '';
+
       this.expenseForm.setValue({
         comment,
-        date,
+        date: new Date(date),
         merchant,
         receipt,
         total,

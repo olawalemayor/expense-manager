@@ -13,14 +13,14 @@
         >
           <h3
             class="text-3xl font-bold"
-            *ngIf="selectedExpense.status !== 'new'"
+            *ngIf="selectedExpense.Status !== 'new'"
           >
             Edit expense
           </h3>
 
           <h3
             class="text-3xl font-bold"
-            *ngIf="selectedExpense.status === 'new'"
+            *ngIf="selectedExpense.Status === 'new'"
           >
             Add new expense
           </h3>
@@ -95,7 +95,7 @@
       <span *ngIf="selectedExpense$ | async as selectedExpense">
         <button
           class="px-5 py-2 rounded-sm bg-green-800 text-white mr-1"
-          *ngIf="selectedExpense.status !== 'new'"
+          *ngIf="selectedExpense.Status !== 'new'"
           (click)="saveExpense()"
         >
           Save
@@ -103,7 +103,7 @@
 
         <button
           class="px-5 py-2 rounded-sm bg-green-800 text-white mr-1"
-          *ngIf="selectedExpense.status === 'new'"
+          *ngIf="selectedExpense.Status === 'new'"
           (click)="addNewExpense()"
         >
           Add

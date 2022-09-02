@@ -18,13 +18,12 @@ export interface ExpenseState extends State {
 const initialState: ExpenseState = {
   expenses: [],
   selectedExpense: {
-    date: new Date(),
-    id: 0,
-    merchant: '',
-    status: 'new',
-    total: 0,
-    comment: '',
-    receipt: '',
+    Date: new Date().toString(),
+    Merchant: '',
+    Status: 'New',
+    Total: (0).toString(),
+    Comment: '',
+    Receipt: '',
   },
   error: '',
   totalExpense: 0,
@@ -133,74 +132,92 @@ export const expenseReducer = createReducer(
   // Filters
 
   // From date
-  on(ExpenseActions.filterFromDate, (state, actions): ExpenseState => {
-    const expenses = [...state.expenses].filter(
-      (expense) => expense.date >= actions.date
-    );
-
+  on(ExpenseActions.filterFromDateSuccess, (state, actions): ExpenseState => {
     return {
       ...state,
-      expenses,
+      expenses: actions.expenses,
     };
   }),
 
-  // To date
-  on(ExpenseActions.filterToDate, (state, actions): ExpenseState => {
-    const expenses = [...state.expenses].filter(
-      (expense) => expense.date <= actions.date
-    );
-
+  on(ExpenseActions.filterFromDateFailure, (state, actions): ExpenseState => {
     return {
       ...state,
-      expenses,
+      error: actions.error,
     };
   }),
 
-  // By min total
-  on(ExpenseActions.filterMin, (state, actions): ExpenseState => {
-    const expenses = [...state.expenses].filter(
-      (expense) => expense.total >= actions.total
-    );
-
+  //   // To date
+  on(ExpenseActions.filterToDateSuccess, (state, actions): ExpenseState => {
     return {
       ...state,
-      expenses,
+      expenses: actions.expenses,
     };
   }),
 
-  // By max total
-  on(ExpenseActions.filterMax, (state, actions): ExpenseState => {
-    const expenses = [...state.expenses].filter(
-      (expense) => expense.total <= actions.total
-    );
-
+  on(ExpenseActions.filterToDateFailure, (state, actions): ExpenseState => {
     return {
       ...state,
-      expenses,
+      error: actions.error,
     };
   }),
 
-  // By merchant
-  on(ExpenseActions.filterMerchant, (state, actions): ExpenseState => {
-    const expenses = [...state.expenses].filter(
-      (expense) => expense.merchant === actions.merchant
-    );
-
+  //   // By min total
+  on(ExpenseActions.filterMinSuccess, (state, actions): ExpenseState => {
     return {
       ...state,
-      expenses,
+      expenses: actions.expenses,
     };
   }),
 
-  // By status
-  on(ExpenseActions.filterStatus, (state, actions): ExpenseState => {
-    const expenses = [...state.expenses].filter(
-      (expense) => expense.status === actions.status
-    );
-
+  on(ExpenseActions.filterMinFailure, (state, actions): ExpenseState => {
     return {
       ...state,
-      expenses,
+      error: actions.error,
+    };
+  }),
+
+  //   // By max total
+  on(ExpenseActions.filterMaxSuccess, (state, actions): ExpenseState => {
+    return {
+      ...state,
+      expenses: actions.expenses,
+    };
+  }),
+
+  on(ExpenseActions.filterMaxFailure, (state, actions): ExpenseState => {
+    return {
+      ...state,
+      error: actions.error,
+    };
+  }),
+
+  //   // By merchant
+  on(ExpenseActions.filterMerchantSuccess, (state, actions): ExpenseState => {
+    return {
+      ...state,
+      expenses: actions.expenses,
+    };
+  }),
+
+  on(ExpenseActions.filterMerchantFailure, (state, actions): ExpenseState => {
+    return {
+      ...state,
+      error: actions.error,
+    };
+  }),
+
+  //   // By status
+  on(ExpenseActions.filterStatusSuccess, (state, actions): ExpenseState => {
+    return {
+      ...state,
+      expenses: actions.expenses,
+    };
+  }),
+
+  on(ExpenseActions.filterStatusFailure, (state, actions): ExpenseState => {
+    return {
+      ...state,
+      error: actions.error,
     };
   })
 );
@@ -208,9 +225,16 @@ export const expenseReducer = createReducer(
 const setTotalExpense = (action: { expenses: IExpense[] }) => {
   let newTotal = 0;
   const newExpenses = action.expenses;
-  newExpenses.forEach((expense) => {
-    if (expense.status === 'new') newTotal += expense.total;
-  });
 
+  newExpenses.forEach((expense) => {
+    if (expense.Status === 'New') {
+      const totalString = expense.Total.split('');
+      totalString.shift();
+
+      const total = Number(totalString.join(''));
+
+      newTotal += total;
+    }
+  });
   return newTotal;
 };

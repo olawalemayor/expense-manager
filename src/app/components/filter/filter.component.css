@@ -1,0 +1,13 @@
+@media (max-width: 576px) {
+  .hide-filter {
+    display: none;
+    /* animation: sildeout 1.5s; */
+  }
+
+  .show-filter {
+    width: 100%;
+    display: block;
+    /* position: relative; */
+    /* animation: slidein 1.5s; */
+  }
+}

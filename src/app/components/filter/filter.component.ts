@@ -5,8 +5,14 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Store } from '@ngrx/store';
-import { getExpenses } from 'src/app/pages/expenses/state/expenses.reducer';
+import {
+  ExpenseState,
+  getExpenses,
+} from 'src/app/pages/expenses/state/expenses.reducer';
 import { getExpenses as loadExpenses } from 'src/app/pages/expenses/state/expenses.actions';
+import { MatIconModule } from '@angular/material/icon';
+import { Observable } from 'rxjs';
+import { getTotalExpenses } from '../../pages/expenses/state/expenses.reducer';
 import {
   filterFromDate,
   filterToDate,
@@ -28,10 +34,11 @@ import {
     ReactiveFormsModule,
     MatCheckboxModule,
     FormsModule,
+    MatIconModule,
   ],
 })
 export class FilterComponent implements OnInit {
-  constructor(private store: Store) {}
+  constructor(private store: Store<ExpenseState>) {}
 
   merchants!: string[];
 
@@ -50,6 +57,12 @@ export class FilterComponent implements OnInit {
   merchant!: string;
   status!: string;
 
+  isOpened = false;
+
+  toggleFilter() {
+    this.isOpened = !this.isOpened;
+  }
+
   clear() {
     this.store.dispatch(loadExpenses());
   }
@@ -66,38 +79,42 @@ export class FilterComponent implements OnInit {
 
   // Filter actions
   filterFrom() {
-    this.clear();
-    this.store.dispatch(filterFromDate({ date: this.from }));
+    console.log('Called');
+    const to = this.to ? this.to : new Date();
+
+    this.store.dispatch(filterFromDate({ from: this.from, to }));
   }
 
   filterTo() {
-    this.clear;
-    this.store.dispatch(filterToDate({ date: this.to }));
+    const from = this.from ? this.from : new Date(0, 0, 0, 0);
+    this.store.dispatch(filterToDate({ from, to: this.to }));
   }
 
   filterMin() {
-    this.clear();
-    this.store.dispatch(filterMin({ total: this.min }));
+    const max = this.max ? this.max : 9999999999999999999999999;
+    this.store.dispatch(filterMin({ max, total: this.min }));
   }
 
   filterMax() {
-    this.clear();
-    this.store.dispatch(filterMax({ total: this.max }));
+    const min = this.min ? this.min : 0;
+    this.store.dispatch(filterMax({ min, total: this.max }));
   }
 
   filterMerchant() {
-    this.clear();
     this.store.dispatch(filterMerchant({ merchant: this.merchant }));
   }
 
   filterStatus() {
-    this.clear();
     this.store.dispatch(filterStatus({ status: this.status }));
   }
 
+  totalExpense!: Observable<number>;
+
   ngOnInit(): void {
     this.store.select(getExpenses).subscribe((expenses) => {
-      this.merchants = Array.from(new Set(expenses.map((ex) => ex.merchant)));
+      this.merchants = Array.from(new Set(expenses.map((ex) => ex.Merchant)));
     });
+
+    this.totalExpense = this.store.select(getTotalExpenses);
   }
 }

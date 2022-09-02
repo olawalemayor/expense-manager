@@ -60,13 +60,13 @@ export class ExpenseTableComponent implements OnInit {
 
       switch (sort.active) {
         case 'date':
-          return compare(a.date, b.date, isAsc);
+          return compare(a.Date, b.Date, isAsc);
         case 'merchant':
-          return compare(a.merchant, b.merchant, isAsc);
+          return compare(a.Merchant, b.Merchant, isAsc);
         case 'total':
-          return compare(a.total, b.total, isAsc);
+          return compare(a.Total, b.Total, isAsc);
         case 'status':
-          return compare(a.status, b.status, isAsc);
+          return compare(a.Status, b.Status, isAsc);
         default:
           return 0;
       }
@@ -76,8 +76,7 @@ export class ExpenseTableComponent implements OnInit {
   selectExpense(expense: any) {
     const selectedExpense = expense as IExpense;
 
-    if (!selectedExpense.id) return;
-    this.store.dispatch(getExpense({ id: selectedExpense.id }));
+    this.store.dispatch(getExpense({ expense: selectedExpense }));
 
     this.store.dispatch(toggleEditMode());
   }
@@ -86,7 +85,7 @@ export class ExpenseTableComponent implements OnInit {
   searchTable() {
     const expenses = [...this.expenses];
     this.sortedExpenses = expenses.filter((e) => {
-      const merchant = e.merchant.toLowerCase();
+      const merchant = e.Merchant.toLowerCase();
 
       return merchant.includes(this.searchTerm.toLowerCase());
     });
