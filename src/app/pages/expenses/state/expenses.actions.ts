@@ -46,6 +46,9 @@ export const getExpenseFailure = createAction(
   props<{ error: string }>()
 );
 
+// Used to set new expense mode
+export const clearExpense = createAction('[Expense] Clear selected expense');
+
 // Remove single expense
 export const removeExpense = createAction(
   '[Expense] Remove expense',

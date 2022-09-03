@@ -88,6 +88,20 @@ export const expenseReducer = createReducer(
     };
   }),
 
+  on(ExpenseActions.clearExpense, (state): ExpenseState => {
+    return {
+      ...state,
+      selectedExpense: {
+        Date: new Date().toString(),
+        Merchant: '',
+        Status: 'New',
+        Total: (0).toString(),
+        Comment: '',
+        Receipt: '',
+      },
+    };
+  }),
+
   // Get all expenses
   on(ExpenseActions.getExpensesSuccess, (state, action): ExpenseState => {
     const newTotal = setTotalExpense(action);

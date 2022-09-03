@@ -97,6 +97,8 @@ export class ExpenseModalComponent implements OnInit {
     });
 
     this.selectedExpense$.subscribe((expense) => {
+      console.log(expense);
+
       const {
         Date: date,
         Merchant: merchant,
